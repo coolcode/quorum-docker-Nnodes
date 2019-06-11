@@ -182,6 +182,7 @@ do
     echo 'Node '$n' public key: '`cat $qd/keys/tm.pub`
 
     if [ $n -eq 1 ]; then
+      cp static-nodes.json $qd/dd/permissioned-nodes.json
       cp templates/start-node-permission.sh $qd/start-node.sh
       echo 'Node '$n': permissioned' 
     else
