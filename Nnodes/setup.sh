@@ -179,7 +179,7 @@ do
     # Generate Quorum-related keys (used by Constellation)
     docker run -u $uid:$gid -v $pwd/$qd:/qdata $image /usr/local/bin/constellation-node  --generatekeys=/qdata/keys/tm < /dev/null > /dev/null
     docker run -u $uid:$gid -v $pwd/$qd:/qdata $image /usr/local/bin/constellation-node  --generatekeys=/qdata/keys/tma < /dev/null > /dev/null
-    echo 'Node '$n' public key: '`cat $qd/keys/tm.pub`
+    # echo 'Node '$n' public key: '`cat $qd/keys/tm.pub`
 
     if [ $n -eq 1 ]; then
       cp static-nodes.json $qd/dd/permissioned-nodes.json
@@ -193,6 +193,7 @@ do
     let n++
 done
 
+echo 'All public keys:'
 n=1
 for ip in ${ips[*]}
 do
@@ -253,3 +254,4 @@ cat templates/contract_pri.js \
 
 # Public contract - no change required
 cp templates/contract_pub.js ./
+echo 'Done!'
