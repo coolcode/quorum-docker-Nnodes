@@ -9,7 +9,7 @@ This is simply a learning exercise for configuring Quorum networks. Probably bes
 ```
 git clone https://github.com/coolcode/quorum-docker-Nnodes
 cd quorum-docker-Nnodes
-sudo docker build -t quorum .
+sudo docker build -t yopoo/quorum .
 cd Nnodes
 sudo ./setup.sh
 sudo docker-compose up -d
