@@ -181,8 +181,9 @@ do
     docker run -u $uid:$gid -v $pwd/$qd:/qdata $image /usr/local/bin/constellation-node  --generatekeys=/qdata/keys/tma < /dev/null > /dev/null
     # echo 'Node '$n' public key: '`cat $qd/keys/tm.pub`
 
+    cp static-nodes.json $qd/dd/permissioned-nodes.json
     if [ $n -eq 1 ]; then
-      cp static-nodes.json $qd/dd/permissioned-nodes.json
+      # cp static-nodes.json $qd/dd/permissioned-nodes.json
       cp templates/start-node-permission.sh $qd/start-node.sh
       echo 'Node '$n': permissioned' 
     else
