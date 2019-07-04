@@ -3,6 +3,7 @@ number_of_node=$1
 subnet=$2
 uid=`id -u`
 gid=`id -g`
+image=yopoo/quorum
 echo 'All nodes: http://localhost:22001-'$(($number_of_node+22000))''
 
 ips=()
