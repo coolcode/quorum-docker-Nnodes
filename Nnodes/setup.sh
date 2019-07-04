@@ -5,7 +5,7 @@
 # One Docker container will be configured for each IP address in $ips
 subnet="172.13.0.0/24"
 number_of_node=7
-if [[ '$1' != '' ]]
+if [ "$1" != "" ]
 then
   number_of_node=$1
 fi
