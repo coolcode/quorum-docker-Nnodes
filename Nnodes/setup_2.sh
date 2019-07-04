@@ -1,6 +1,21 @@
 #!/bin/bash
 number_of_node=$1
 subnet=$2
+uid=`id -u`
+gid=`id -g`
+echo 'All nodes: http://localhost:22001-'$(($number_of_node+22000))''
+
+ips=()
+x=1
+while [ $x -le $number_of_node ]
+do
+  echo '"http://localhost:'$(($x+22000))'",'
+  x=$(( $x + 1 ))
+  # begins with 172.13.0.2
+  ip="172.13.0.$x"
+  ips+=(ip)
+done
+
 echo 'All public keys:'
 n=1
 while [ $n -le $number_of_node ]
@@ -32,7 +47,7 @@ do
       - './$qd:/qdata'
     networks:
       quorum_net:
-        ipv4_address: '$ip'
+        ipv4_address: '${ips[$n]}'
     ports:
       - $((n+22000)):8545
     user: '$uid:$gid'
