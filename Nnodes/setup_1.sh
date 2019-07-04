@@ -1,23 +1,4 @@
 #!/bin/bash
-
-#
-# Create all the necessary scripts, keys, configurations etc. to run
-# a cluster of N Quorum nodes with Raft consensus.
-#
-# The nodes will be in Docker containers. List the IP addresses that
-# they will run at below (arbitrary addresses are fine).
-#
-# Run the cluster with "docker-compose up -d"
-#
-# Run a console on Node N with "geth attach qdata_N/dd/geth.ipc"
-# (assumes Geth is installed on the host.)
-#
-# Geth and Constellation logfiles for Node N will be in qdata_N/logs/
-#
-
-# TODO: check file access permissions, especially for keys.
-
-
 #### Configuration options #############################################
 
 # One Docker container will be configured for each IP address in $ips
