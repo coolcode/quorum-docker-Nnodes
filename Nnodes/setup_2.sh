@@ -4,13 +4,13 @@ subnet=$2
 uid=`id -u`
 gid=`id -g`
 image=yopoo/quorum
-echo 'All nodes: http://localhost:22001-'$(($number_of_node+22000))''
+echo 'All nodes: http://localhost:23001-'$(($number_of_node+23000))''
 
 ips=()
 x=1
 while [ $x -le $number_of_node ]
 do
-  echo '"http://localhost:'$(($x+22000))'",'
+  echo '"http://localhost:'$(($x+23000))'",'
   x=$(( $x + 1 ))
   # begins with 172.13.0.2
   ip="172.13.0.$x"
@@ -50,7 +50,7 @@ do
       quorum_net:
         ipv4_address: '$ip'
     ports:
-      - $((n+22000)):8545
+      - $((n+23000)):8545
     user: '$uid:$gid'
 EOF
 
