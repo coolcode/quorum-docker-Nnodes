@@ -13,7 +13,7 @@ do
   x=$(( $x + 1 ))
   # begins with 172.13.0.2
   ip="172.13.0.$x"
-  ips+=(ip)
+  ips+=($ip)
 done
 
 echo 'All public keys:'
