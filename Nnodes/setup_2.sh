@@ -1,5 +1,5 @@
 #!/bin/bash
-number_of_node=10
+number_of_node=$1
 echo 'All public keys:'
 n=1
 while [ $n -le $number_of_node ]

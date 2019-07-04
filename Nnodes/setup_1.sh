@@ -6,15 +6,16 @@ subnet="172.13.0.0/24"
 number_of_node=$1
 offest=$2
 begin_index=$(( $2 + 1 )) 
-echo '[0] Parameters: '$number_of_node' '$offest' '$begin_index'. '
+echo '[0] Parameters: '$number_of_node' '$offest'. '
 #ips=("172.13.0.15" "172.13.0.2" "172.13.0.3")
 ips=()
-x=$begin_index
+x=1
 while [ $x -le $number_of_node ]
 do
-  x=$(( $x + 1 )) 
+  x=$(( $x + 1 ))
+  last_ip_number=$(($x+$begin_index))
   # begins with 172.13.0.2
-  ips+=("172.13.0.$x")
+  ips+=("172.13.0.$last_ip_number")
 done
 
 # Docker image name
@@ -42,10 +43,10 @@ echo '[1] Configuring for '$nnodes' nodes.'
 
 #exit 1
 
-n=$begin_index 
+n=1 
 for ip in ${ips[*]}
 do
-    qd=qdata_$n
+    qd=qdata_$(($n+$begin_index))
     mkdir -p $qd/{logs,keys}
     mkdir -p $qd/dd/geth
 
@@ -58,10 +59,10 @@ done
 echo '[2] Creating Enodes and static-nodes.json.'
 
 echo "[" > static-nodes.json
-n=$begin_index
+n=1
 for ip in ${ips[*]}
 do
-    qd=qdata_$n
+    qd=qdata_$(($n+$begin_index))
 
     # Generate the node's Enode and key
     enode=`docker run -u $uid:$gid -v $pwd/$qd:/qdata $image /usr/local/bin/bootnode -genkey /qdata/dd/nodekey`
@@ -86,10 +87,10 @@ cat > genesis.json <<EOF
   "alloc": {
 EOF
 
-n=$begin_index
+n=1
 for ip in ${ips[*]}
 do
-    qd=qdata_$n
+    qd=qdata_$(($n+$begin_index))
 
     # Generate an Ether account for the node
     touch $qd/passwords.txt
@@ -132,12 +133,10 @@ EOF
 #### Make node list for tm.conf ########################################
 
 nodelist=
-n=$begin_index
 for ip in ${ips[*]}
 do
     sep=`[[ $ip != ${ips[0]} ]] && echo ","`
     nodelist=${nodelist}${sep}'"http://'${ip}':9000/"'
-    let n++
 done
 
 
@@ -145,10 +144,10 @@ done
 
 echo '[4] Creating Quorum keys and finishing configuration.'
 
-n=$begin_index
+n=1
 for ip in ${ips[*]}
 do
-    qd=qdata_$n
+    qd=qdata_$(($n+$begin_index))
 
     cat templates/tm.conf \
         | sed s/_NODEIP_/${ips[$((n-1))]}/g \
