@@ -47,7 +47,7 @@ do
       - './$qd:/qdata'
     networks:
       quorum_net:
-        ipv4_address: '${ips[$n]}'
+        ipv4_address: '${ips['$n']}'
     ports:
       - $((n+22000)):8545
     user: '$uid:$gid'
