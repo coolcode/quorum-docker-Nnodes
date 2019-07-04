@@ -5,9 +5,14 @@
 # One Docker container will be configured for each IP address in $ips
 subnet="172.13.0.0/24"
 number_of_node=7
+base_rpc_ip=22000
 if [ "$1" != "" ]
 then
   number_of_node=$1
+fi
+if [ "$2" != "" ]
+then
+  base_rpc_ip=$2
 fi
 #ips=("172.13.0.15" "172.13.0.2" "172.13.0.3" "172.13.0.4" "172.13.0.5" "172.13.0.6" "172.13.0.7" "172.13.0.8" "172.13.0.9" "172.13.0.10" "172.13.0.11" "172.13.0.12" "172.13.0.13" "172.13.0.14")
 ips=()
@@ -212,7 +217,7 @@ do
       quorum_net:
         ipv4_address: '$ip'
     ports:
-      - $((n+22000)):8545
+      - $(($n+$base_rpc_ip)):8545
     user: '$uid:$gid'
 EOF
 
