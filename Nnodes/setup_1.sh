@@ -2,7 +2,6 @@
 #### Configuration options #############################################
 
 # One Docker container will be configured for each IP address in $ips
-subnet="172.13.0.0/24"
 number_of_node=$1
 begin_index=$2
 echo '[0] Parameters: '$number_of_node' '$begin_index'. '

@@ -1,13 +1,13 @@
 #!/bin/bash
 number_of_node=$1
+subnet=$2
 echo 'All public keys:'
 n=1
 while [ $n -le $number_of_node ]
 do
-  n=$(( $n + 1 )) 
-  # begins with 172.13.0.2
   qd=qdata_$n
   echo '"'`cat $qd/keys/tm.pub`'",'
+  let n++
 done
 
 rm -rf genesis.json static-nodes.json
