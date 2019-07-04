@@ -1,7 +1,4 @@
 #!/bin/bash
-./setup_1.sh 7 0
-./setup_1.sh 3 7
-
 number_of_node=10
 echo 'All public keys:'
 n=1

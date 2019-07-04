@@ -31,8 +31,6 @@ then
     echo "ERROR: There must be more than one node IP address."
     exit 1
 fi
-   
-./cleanup.sh
 
 uid=`id -u`
 gid=`id -g`
