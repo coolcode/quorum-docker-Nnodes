@@ -6,7 +6,7 @@ subnet="172.13.0.0/24"
 number_of_node=$1
 offest=$2
 begin_index=$(( $2 + 1 )) 
-echo 'parameters: '$number_of_node' '$offest' '$begin_index'. '
+echo '[0] Parameters: '$number_of_node' '$offest' '$begin_index'. '
 #ips=("172.13.0.15" "172.13.0.2" "172.13.0.3")
 ips=()
 x=$begin_index
@@ -175,3 +175,4 @@ do
     let n++
 done
 
+echo '[Next] ================================================================'
