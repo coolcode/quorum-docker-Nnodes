@@ -36,7 +36,7 @@ services:
 EOF
 
 n=1
-while [ $n -le $number_of_node ]
+for ip in ${ips[*]}
 do
     qd=qdata_$n
 
@@ -47,7 +47,7 @@ do
       - './$qd:/qdata'
     networks:
       quorum_net:
-        ipv4_address: '${ips['$n']}'
+        ipv4_address: '$ip'
     ports:
       - $((n+22000)):8545
     user: '$uid:$gid'
