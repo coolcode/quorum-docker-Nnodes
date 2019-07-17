@@ -5,14 +5,14 @@
 # One Docker container will be configured for each IP address in $ips
 subnet="172.13.0.0/24"
 number_of_node=7
-base_rpc_ip=22000
+base_rpc_port=22000
 if [ "$1" != "" ]
 then
   number_of_node=$1
 fi
 if [ "$2" != "" ]
 then
-  base_rpc_ip=$2
+  base_rpc_port=$2
 fi
 #ips=("172.13.0.15" "172.13.0.2" "172.13.0.3" "172.13.0.4" "172.13.0.5" "172.13.0.6" "172.13.0.7" "172.13.0.8" "172.13.0.9" "172.13.0.10" "172.13.0.11" "172.13.0.12" "172.13.0.13" "172.13.0.14")
 ips=()
@@ -47,7 +47,7 @@ pwd=`pwd`
 
 #### Create directories for each node's configuration ##################
 
-echo '[1] Configuring for '$nnodes' nodes.'
+echo '[1] Configuring for '$nnodes' nodes, base rpc port: '$base_rpc_port'.'
 
 #exit 1
 
@@ -186,12 +186,18 @@ done
 
 echo 'All public keys:'
 n=1
+public_keys='['
 for ip in ${ips[*]}
 do
   qd=qdata_$n
-  echo '"'`cat $qd/keys/tm.pub`'",'
+  #echo '"'`cat $qd/keys/tm.pub`'",'
+  sep=`[[ $ip != ${ips[0]} ]] && echo ","`
+  public_keys=${public_keys}${sep}'"'`cat $qd/keys/tm.pub`'"'
   let n++
 done
+public_keys="${public_keys}]"
+echo "$public_keys"
+echo "$public_keys" > 'public_keys.txt'
 
 rm -rf genesis.json static-nodes.json
 
@@ -217,7 +223,7 @@ do
       quorum_net:
         ipv4_address: '$ip'
     ports:
-      - $(($n+$base_rpc_ip)):8545
+      - $(($n+$base_rpc_port)):8545
     user: '$uid:$gid'
 EOF
 
