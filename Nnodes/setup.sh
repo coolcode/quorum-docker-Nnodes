@@ -197,7 +197,7 @@ do
 done
 public_keys="${public_keys}]"
 echo "$public_keys"
-echo "$public_keys" > 'public_keys.txt'
+echo "$public_keys" > 'public_keys.json'
 
 rm -rf genesis.json static-nodes.json
 
