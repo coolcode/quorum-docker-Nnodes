@@ -3,27 +3,16 @@
 #### Configuration options #############################################
 
 # One Docker container will be configured for each IP address in $ips
-subnet="172.13.0.0/24"
-number_of_node=1
-base_rpc_port=22000
 current_node=1
 ip=
 
 if [ "$1" != "" ]
 then
-  number_of_node=$1
+  current_node=$1
 fi
 if [ "$2" != "" ]
 then
-  base_rpc_port=$2
-fi
-if [ "$3" != "" ]
-then
-  current_node=$3
-fi
-if [ "$4" != "" ]
-then
-  ip=$4
+  ip=$2
 fi
 
 
@@ -40,11 +29,8 @@ pwd=`pwd`
 
 #### Create directories for each node's configuration ##################
 
-echo '[1] Configuring for '$current_node' nodes, base rpc port: '$base_rpc_port'.'
+echo '[1] Configuring for node '$current_node'.'
 
-#exit 1
-
-n=1
 qd=qdata_0
 mkdir -p $qd/{logs,keys}
 mkdir -p $qd/dd/geth
@@ -108,12 +94,15 @@ EOF
 cat > docker-compose.yml <<EOF
 version: '2'
 services:
-  node_$n:
+  node_1:
     image: $image
     volumes:
       - './$qd:/qdata'
     ports:
-      - $(($n+$base_rpc_port)):8545
+      - 22001:8545
+      - 9000:9000
+      - 30303:30303
+      - 50400:50400
     user: '$uid:$gid'
 EOF
 
