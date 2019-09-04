@@ -30,7 +30,7 @@ n=1
 for ip in ${ips[*]}
 do
     echo $n', ip:'$ip
-    sep=`[[ $ip != ${ips[$((current_node+1))]} ]] && echo ","`
+    sep=`[[ $n != $((current_node))]] && echo ","`
     nodelist=${nodelist}${sep}'"http://'${ip}':9000/"'
     let n++
 done
@@ -43,7 +43,7 @@ echo '[4] Creating Quorum keys and finishing configuration.'
 qd=qdata_0
 
 cat templates/tm.conf \
-    | sed s/_NODEIP_/${ips[$((current_node))]}/g \
+    | sed s/_NODEIP_/${ips[$(($current_node))]}/g \
     | sed s%_NODELIST_%$nodelist%g \
           > $qd/tm.conf
 
