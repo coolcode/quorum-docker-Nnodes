@@ -29,7 +29,8 @@ nodelist=
 n=1
 for ip in ${ips[*]}
 do
-    sep=`[[ $ip != ${ips[current_node]} ]] && echo ","`
+    echo $n', ip:'$ip
+    sep=`[[ $ip != ${ips[$((current_node+1))]} ]] && echo ","`
     nodelist=${nodelist}${sep}'"http://'${ip}':9000/"'
     let n++
 done
