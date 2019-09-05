@@ -39,6 +39,10 @@ do
 done
 
 
+echo 'myip1: '${ips[1]}
+echo 'myip2: '${ips[2]}
+echo 'myip3: '${ips[3]}
+
 #### Complete each node's configuration ################################
 
 echo '[4] Creating Quorum keys and finishing configuration.'
@@ -46,7 +50,7 @@ echo '[4] Creating Quorum keys and finishing configuration.'
 qd=qdata_0
 
 echo $((current_node))
-echo 'myip: '${ips[2]}
+echo ${ips[2]}
 echo 'myip2: '${ips[$current_node]}
 cat templates/tm.conf \
     | sed s/_NODEIP_/${ips[$current_node]}/g \
@@ -54,7 +58,7 @@ cat templates/tm.conf \
           > $qd/tm.conf
 
 cp genesis.json $qd/genesis.json
-cp static-nodes.json $qd/dd/static-nodes.json
+# cp static-nodes.json $qd/dd/static-nodes.json
 
 # Generate Quorum-related keys (used by Constellation)
 docker run -u $uid:$gid -v $pwd/$qd:/qdata $image /usr/local/bin/constellation-node  --generatekeys=/qdata/keys/tm < /dev/null > /dev/null
