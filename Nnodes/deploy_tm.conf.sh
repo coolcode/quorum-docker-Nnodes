@@ -53,15 +53,16 @@ echo '[4] Creating Quorum keys and finishing configuration.'
 
 qd=qdata_0
 
-echo $((current_node))
-echo ${ips[2]}
-echo 'myip2: '${ips[$current_node]}
+# echo $((current_node))
+# echo ${ips[2]}
+# echo 'myip2: '${ips[$current_node]}
 
 n=0
 for ip in ${ips[*]}
 do
     if [[ $n -eq $current_node ]]
     then
+      echo 'myip: '$ip
       cat templates/tm.conf \
         | sed s/_NODEIP_/$ip/g \
         | sed s%_NODELIST_%$nodelist%g \
@@ -83,13 +84,13 @@ docker run -u $uid:$gid -v $pwd/$qd:/qdata $image /usr/local/bin/constellation-n
 docker run -u $uid:$gid -v $pwd/$qd:/qdata $image /usr/local/bin/constellation-node  --generatekeys=/qdata/keys/tma < /dev/null > /dev/null
 # echo 'Node '$n' public key: '`cat $qd/keys/tm.pub`
 
-# if [ $n -eq 1 ]; then
-#   cp static-nodes.json $qd/dd/permissioned-nodes.json
-#   cp templates/start-node-permission.sh $qd/start-node.sh
-#   echo 'Node '$n': permissioned' 
-# else
-#   cp templates/start-node.sh $qd/start-node.sh
-# fi
-# chmod 755 $qd/start-node.sh
+if [ $current_node -eq 1 ]; then
+  cp $qd/dd/static-nodes.json $qd/dd/permissioned-nodes.json
+  cp templates/start-node-permission.sh $qd/start-node.sh
+  echo 'Node '$n': permissioned' 
+else
+  cp templates/start-node.sh $qd/start-node.sh
+fi
+chmod 755 $qd/start-node.sh
 
 echo 'Done!'
