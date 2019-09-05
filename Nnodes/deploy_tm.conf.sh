@@ -56,10 +56,24 @@ qd=qdata_0
 echo $((current_node))
 echo ${ips[2]}
 echo 'myip2: '${ips[$current_node]}
-cat templates/tm.conf \
-    | sed s/_NODEIP_/${ips[$current_node]}/g \
-    | sed s%_NODELIST_%$nodelist%g \
-          > $qd/tm.conf
+
+n=0
+for ip in ${ips[*]}
+do
+    if [[ $n -eq $current_node ]]
+    then
+      cat templates/tm.conf \
+        | sed s/_NODEIP_/$ip/g \
+        | sed s%_NODELIST_%$nodelist%g \
+              > $qd/tm.conf
+    fi
+    let n++
+done
+
+# cat templates/tm.conf \
+#     | sed s/_NODEIP_/${ips[$current_node]}/g \
+#     | sed s%_NODELIST_%$nodelist%g \
+#           > $qd/tm.conf
 
 cp genesis.json $qd/genesis.json
 # cp static-nodes.json $qd/dd/static-nodes.json
