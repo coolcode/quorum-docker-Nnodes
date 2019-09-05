@@ -29,7 +29,7 @@ nodelist=
 n=1
 
 
-echo 'ips: '${!ips[@]}
+# echo 'ips: '${!ips[@]}
 
 for ip in ${ips[*]}
 do
@@ -43,9 +43,9 @@ do
 done
 
 
-echo 'ips: '${!ips[@]}
-echo 'myip2: '${ips[2]}
-echo 'myip3: '${ips[3]}
+# echo 'ips: '${!ips[@]}
+# echo 'myip2: '${ips[2]}
+# echo 'myip3: '${ips[3]}
 
 #### Complete each node's configuration ################################
 

@@ -22,12 +22,16 @@ nohup /usr/local/bin/constellation-node $TMCONF 2>> /qdata/logs/constellation.lo
 
 sleep 2
 DOWN=true
+echo "Waiting tm.ipc"
+n=1
 while $DOWN; do
   sleep 1
   DOWN=false
 	if [ ! -S "/qdata/tm.ipc" ]; then
     DOWN=true
+    echo $n" s"
 	fi
+  let n++
 done
 
 echo "[*] Starting node"
