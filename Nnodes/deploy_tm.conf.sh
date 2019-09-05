@@ -27,6 +27,10 @@ pwd=`pwd`
 
 nodelist=
 n=1
+
+
+echo 'ips: '${!ips[@]}
+
 for ip in ${ips[*]}
 do
     echo $n', ip:'$ip
