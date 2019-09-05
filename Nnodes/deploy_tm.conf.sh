@@ -39,7 +39,7 @@ do
 done
 
 
-echo 'myip1: '${ips[1]}
+echo 'ips: '${!ips[@]}
 echo 'myip2: '${ips[2]}
 echo 'myip3: '${ips[3]}
 
