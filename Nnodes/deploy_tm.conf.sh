@@ -45,7 +45,7 @@ echo '[4] Creating Quorum keys and finishing configuration.'
 
 qd=qdata_0
 
-echo 'myip: '${ips[$(($current_node+0))]}
+echo 'myip: '${ips[$((current_node))]}
 cat templates/tm.conf \
     | sed s/_NODEIP_/${ips[$(($current_node))]}/g \
     | sed s%_NODELIST_%$nodelist%g \
