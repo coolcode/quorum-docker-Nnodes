@@ -34,7 +34,7 @@ n=1
 for ip in ${ips[*]}
 do
     echo $n', ip:'$ip
-    if [[ $n -gt 1 -a $n != $current_node]]
+    if [[ $n -gt 1 ]] && [[ $n != $current_node ]]
     then
       sep=`[[ $n != 2 ]] && echo ","`
       nodelist=${nodelist}${sep}'"http://'${ip}':9000/"'
