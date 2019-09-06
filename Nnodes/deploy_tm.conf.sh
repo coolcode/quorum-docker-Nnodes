@@ -37,7 +37,7 @@ do
     echo $n', ip:'$ip
     if [[ $n -gt 1 ]] && [[ $n -ne $((current_node+1)) ]]
     then
-      sep=`[[ $nodelist -eq '' ]] && echo ","`
+      sep=`[[ $nodelist -ne '' ]] && echo ","`
       nodelist=${nodelist}${sep}'"http://'${ip}':9000/"'
     fi
     let n++
