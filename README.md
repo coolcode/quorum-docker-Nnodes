@@ -1,4 +1,4 @@
-# Setup N Quorum Nodes
+#  Setup N Quorum Nodes for Drug R&D marketplace (EthBoston)
 
 Run a bunch of Quorum nodes, each in a separate Docker container.
 
