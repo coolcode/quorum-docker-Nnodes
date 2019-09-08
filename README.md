@@ -11,9 +11,10 @@ git clone https://github.com/coolcode/quorum-docker-Nnodes
 cd quorum-docker-Nnodes
 sudo docker build -t yopoo/quorum .
 cd Nnodes
-sudo ./setup.sh
+sudo ./setup.sh {ip} {number of nodes} # sample: ./setup.sh 127.0.0.1 3
 sudo docker-compose up -d
 ```
+
 
 DONE!
 
